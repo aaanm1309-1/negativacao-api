@@ -1,0 +1,29 @@
+mvn spring-boot:run
+{
+    "id":100,
+    "nome": "Joao",
+    "divida": 1000,
+    "negativar": true
+
+}
+
+mvn clean package
+
+aws lambda create-function --function-name Negativacao --zip-file fileb://target/negativacao-0.0.1-SNAPSHOT.jar --handler com.adrianomenezes.negativacao.NegativacaoApplication::handleRequest --runtime java8 --role arn:aws:iam::620769944424:role/lambda-role
+
+
+aws lambda update-function-code --function-name Funcao02 --zip-file fileb://target/negativacao-0.0.1-SNAPSHOT.jar
+
+
+
+use database-negativacao
+create database negativacao
+use negativacao
+create table tb_clientes (id int, nome varchar(50), divida double, negativar boolean, primary key (id));
+
+git init
+git add .
+git commit -m "first commit"
+git branch -M main
+git remote add origin https://github.com/aaanm1309-1/NegativaBuroA.git
+git push -u origin main
