@@ -1,7 +1,7 @@
 package com.adrianomenezes.negativacao;
 
 
-import com.google.gson.Gson;
+import com.adrianomenezes.negativacao.model.entity.Cliente;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.*;
@@ -12,10 +12,8 @@ import org.springframework.web.bind.annotation.*;
 //import com.amazonaws.services.rdsdata.model.ExecuteSqlRequest;
 //import com.amazonaws.services.rdsdata.model.ExecuteSqlResult;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.net.*;
 import java.sql.*;
 import java.util.ArrayList;
@@ -23,7 +21,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 import org.json.JSONTokener;
 import org.json.JSONObject;
-import org.json.JSONArray;
 
 @SpringBootApplication
 @RestController
@@ -40,19 +37,9 @@ public class NegativacaoApplication {
 
 
 
-	@PostMapping("/clientes")
-	public Cliente addCliente(@RequestBody Cliente cliente) {
-		System.out.println(cliente);
-		gravaClientes(cliente);
-		clientes.add(cliente);
-		return cliente;
-	}
 
-	@GetMapping("/clientes")
-	public List<Cliente> getClientes(){
-//		listaClientes();
-		return listaClientes();
-	}
+
+
 
 
 	public static void main(String[] args) {
@@ -107,45 +94,6 @@ public class NegativacaoApplication {
 	}
 
 
-	private void gravaClientes(Cliente cliente){
-
-
-		Connection conn = null;
-		Statement setupStatement = null;
-		Statement readStatement = null;
-		Statement execStatement = null;
-		ResultSet resultSet = null;
-		String results = "";
-		int numresults = 0;
-		String statement = null;
-
-		try {
-			conn = DriverManager.getConnection(jdbcUrl);
-
-			execStatement = conn.createStatement();
-			String query = "INSERT INTO tb_clientes values(" +
-							 cliente.getId()  + "," +
-							"'" + cliente.getNome() + "'" + "," +
-							 cliente.getDivida() + "," +
-							cliente.getNegativar()   +
-							")";
-			System.out.println("QUERY: " + query);
-
-			execStatement.execute(query);
-
-			conn.close();
-
-		} catch (SQLException ex) {
-			// Handle any errors
-			System.out.println("SQLException: " + ex.getMessage());
-			System.out.println("SQLState: " + ex.getSQLState());
-			System.out.println("VendorError: " + ex.getErrorCode());
-		} finally {
-			System.out.println("Closing the connection.");
-			if (conn != null) try { conn.close(); } catch (SQLException ignore) {}
-		}
-
-	}
 
 	private List<Cliente> listaClientes(){
 
