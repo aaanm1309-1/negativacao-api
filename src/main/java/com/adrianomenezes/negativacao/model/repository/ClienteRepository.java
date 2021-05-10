@@ -14,4 +14,15 @@ public interface ClienteRepository extends JpaRepository<Cliente, Integer> {
     @Query("select c from Cliente c "
             + " where upper(c.nome) like upper(:nome) " )
     List<Cliente> findByNomes(@Param("nome") String nome);
+
+    @Query("select c from Cliente c "
+            + " where c.id = :id "
+            + " and  c.negativar = true" )
+    List<Cliente> findClientesANegativar(@Param("id") Integer id);
+
+    @Query("select c from Cliente c "
+            + " where  "
+            + "   c.negativar = true" )
+    List<Cliente> findClientesANegativar();
+
 }
