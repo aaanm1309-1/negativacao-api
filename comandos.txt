@@ -12,7 +12,7 @@ mvn clean package
 aws lambda create-function --function-name Negativacao --zip-file fileb://target/negativacao-0.0.1-SNAPSHOT.jar --handler com.adrianomenezes.negativacao.NegativacaoApplication::handleRequest --runtime java8 --role arn:aws:iam::620769944424:role/lambda-role
 
 
-aws lambda update-function-code --function-name Funcao02 --zip-file fileb://target/negativacao-0.0.1-SNAPSHOT.jar
+aws lambda update-function-code --function-name Negativacao --zip-file fileb://target/negativacao-0.0.1-SNAPSHOT.jar
 
 
 

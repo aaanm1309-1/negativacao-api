@@ -20,7 +20,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/api/negativacao")
+@RequestMapping("/negativacao")
 public class NegativacaoController {
 
     private final ClienteRepository repository;
@@ -54,7 +54,7 @@ public class NegativacaoController {
                 InputStream retorno = con.getInputStream();
 
                 JSONObject jsonObject = new JSONObject(new JSONTokener(retorno));
-//                System.out.println("RETORNO LAMBDA: " + jsonObject);
+                System.out.println("RETORNO LAMBDA: " + jsonObject);
                 clientesNegativado.add(cliente);
 
             } catch (MalformedURLException e) {
